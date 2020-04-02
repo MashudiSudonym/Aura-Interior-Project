@@ -3,4 +3,6 @@
     <string name="key_maps" translatable="false">AIzaSyCy_DhxB1vF-WvHSYlOydmi19MD82nK9gM</string>
     <string name="no_data">No Data</string>
     <string name="img_desc">img desc</string>
+    <string name="permission_granted">Permission Granted</string>
+    <string name="permission_denied">Permission Denied</string>
 </resources>
