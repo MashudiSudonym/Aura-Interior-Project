@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1018320231565",
+    "firebase_url": "https://aura-interior-project.firebaseio.com",
+    "project_id": "aura-interior-project",
+    "storage_bucket": "aura-interior-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018320231565:android:97a2741b94b3ae0a8ed6c4",
+        "android_client_info": {
+          "package_name": "c.m.aurainteriorproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018320231565-ssd8mrk2ei7kd4dql0u5n0qgq7clc3cn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy_DhxB1vF-WvHSYlOydmi19MD82nK9gM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018320231565-ssd8mrk2ei7kd4dql0u5n0qgq7clc3cn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

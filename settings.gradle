@@ -1,0 +1,2 @@
+rootProject.name='Aura Interior Project'
+include ':app'
