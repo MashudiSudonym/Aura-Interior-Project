@@ -1,7 +1,8 @@
-package c.m.aurainteriorproject
+package c.m.aurainteriorproject.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import c.m.aurainteriorproject.R
 
 class MainActivity : AppCompatActivity() {
 
