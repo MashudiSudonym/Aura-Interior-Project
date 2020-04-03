@@ -9,7 +9,6 @@ import c.m.aurainteriorproject.util.gone
 import c.m.aurainteriorproject.util.visible
 import com.github.babedev.dexter.dsl.runtimePermission
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(), MainView {
 
@@ -60,15 +59,7 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private fun permissionDevice() {
         runtimePermission {
-            permission(Manifest.permission.ACCESS_FINE_LOCATION) {
-                granted {
-                    toast(getString(R.string.permission_granted))
-                }
-
-                denied {
-                    toast(getString(R.string.permission_denied))
-                }
-            }
+            permission(Manifest.permission.ACCESS_FINE_LOCATION) {}
         }
     }
 
