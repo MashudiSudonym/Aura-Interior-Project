@@ -27,6 +27,8 @@ class MainPresenter : BasePresenter<MainView> {
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(databaseError: DatabaseError) {
                     Log.e("Err!!", "Load Error : $databaseError", databaseError.toException())
+
+                    mainView?.showNoDataResult()
                 }
 
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -34,10 +36,13 @@ class MainPresenter : BasePresenter<MainView> {
                         mutableListOf(it.getValue(WallpaperResponse::class.java))
                     }
 
-                    mainView?.hideLoading()
-                    mainView?.getWallpaper(wallpaperData)
-
-                    Log.d("Success!!", wallpaperData.toString())
+                    when (wallpaperData.isEmpty()) {
+                        true -> mainView?.showNoDataResult()
+                        false -> {
+                            mainView?.hideLoading()
+                            mainView?.getWallpaper(wallpaperData as List<WallpaperResponse>)
+                        }
+                    }
                 }
             })
     }
