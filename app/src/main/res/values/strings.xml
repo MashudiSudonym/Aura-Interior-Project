@@ -5,4 +5,16 @@
     <string name="img_desc">img desc</string>
     <string name="permission_granted">Permission Granted</string>
     <string name="permission_denied">Permission Denied</string>
+    <string name="type_wallpaper">Type Wallpaper</string>
+    <string name="price">Price</string>
+    <string name="title_spacious_room">Cara menghitung :\n\nTerlebih dahulu hitunglah luas ruangan atau luas dari tembok yang akan dipasang.\nJika lebih dari satu ruangan, maka jumlahkan luas masing-masing ruangan.\n\nLalu masukkan nilai luas yang sudah didapat pada kolom dibawah.\n\nCatatan :\n\nHasil dari perhitungan hanya berupa perkiraan atau estimasi. Jumlah dan Biaya sebenarnya akan diketahui setelah dilakukan survei.\n\n Masukkan Luas Ruangan (Meter Persegi)</string>
+    <string name="title_estimation_results">Hasil Estimasi</string>
+    <string name="roll_estimation">Jumlah Roll Wallpaper yang Didapat :</string>
+    <string name="zero_number">0</string>
+    <string name="price_estimation">"Total Harga : "</string>
+    <string name="order">Pesan</string>
+    <string name="cancel_order">Batal Pesan</string>
+    <string name="detail_wallpaper">Detail Wallpaper</string>
+    <string name="title_price">Harga : Rp.</string>
+    <string name="per_roll">/ Roll</string>
 </resources>

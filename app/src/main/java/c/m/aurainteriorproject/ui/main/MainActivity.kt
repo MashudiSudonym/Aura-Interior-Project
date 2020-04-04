@@ -5,10 +5,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import c.m.aurainteriorproject.R
 import c.m.aurainteriorproject.model.WallpaperResponse
+import c.m.aurainteriorproject.ui.detail.DetailActivity
+import c.m.aurainteriorproject.util.Constants
 import c.m.aurainteriorproject.util.gone
 import c.m.aurainteriorproject.util.visible
 import com.github.babedev.dexter.dsl.runtimePermission
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity(), MainView {
 
@@ -52,7 +55,9 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     private fun setupRecyclerView() {
-        mainAdapter = MainAdapter(contentData) {}
+        mainAdapter = MainAdapter(contentData) { response ->
+            startActivity<DetailActivity>(Constants.UID to response.uid)
+        }
         rv_wallpaper.setHasFixedSize(true)
         rv_wallpaper.adapter = mainAdapter
     }
