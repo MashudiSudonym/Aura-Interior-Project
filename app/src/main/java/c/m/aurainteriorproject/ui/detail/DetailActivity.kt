@@ -5,12 +5,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import c.m.aurainteriorproject.R
+import c.m.aurainteriorproject.ui.formorder.FormOrderActivity
 import c.m.aurainteriorproject.util.Constants
 import c.m.aurainteriorproject.util.Converter
 import coil.api.load
 import com.ceylonlabs.imageviewpopup.ImagePopup
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.startActivity
 import kotlin.math.ceil
 
 class DetailActivity : AppCompatActivity(), DetailView {
@@ -46,6 +48,11 @@ class DetailActivity : AppCompatActivity(), DetailView {
 
         // get detail wallpaper data
         presenter.getDetailWallpaper(uid.toString())
+
+        // cancel order button
+        btn_cancel_order.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onDetachView() {
@@ -59,12 +66,14 @@ class DetailActivity : AppCompatActivity(), DetailView {
 
     @SuppressLint("SetTextI18n")
     override fun getDetailWallpaper(type: String, imageWallpaper: String) {
+        // show image wallpaper
         img_wallpaper.load(imageWallpaper) {
             crossfade(true)
             placeholder(R.drawable.loading_animation)
             error(R.drawable.ic_broken_image)
         }
 
+        // full screen view for image wallpaper
         ImagePopup(this).apply {
             isImageOnClickClose = true
             isHideCloseIcon = true
@@ -73,10 +82,12 @@ class DetailActivity : AppCompatActivity(), DetailView {
             img_wallpaper.onClick { viewPopup() }
         }
 
+        // wallpaper type
         tv_type_wallpaper.text = type
 
         // get edit text value
         edt_spacious_room_value.addTextChangedListener { text ->
+            // check edit text value
             val editTextValue = text?.trim()
             val resultEditTextValue = when (editTextValue.isNullOrEmpty()) {
                 false -> editTextValue.toString()
@@ -90,6 +101,13 @@ class DetailActivity : AppCompatActivity(), DetailView {
             // result
             tv_roll_estimation.text = "$rollEstimationResult roll"
             tv_price_estimation.text = Converter.rupiah(priceEstimationResult)
+        }
+
+        // Order Button
+        btn_order.setOnClickListener {
+            startActivity<FormOrderActivity>(
+                Constants.TYPE to type
+            )
         }
     }
 

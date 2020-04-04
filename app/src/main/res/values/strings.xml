@@ -11,10 +11,17 @@
     <string name="title_estimation_results">Hasil Estimasi</string>
     <string name="roll_estimation">Jumlah Roll Wallpaper yang Didapat :</string>
     <string name="zero_number">0</string>
-    <string name="price_estimation">"Total Harga : "</string>
+    <string name="price_estimation">"Total Harga\n(termasuk biaya pemasangan dan harga wallpaper) : "</string>
     <string name="order">Pesan</string>
     <string name="cancel_order">Batal Pesan</string>
     <string name="detail_wallpaper">Detail Wallpaper</string>
     <string name="title_price">Harga : Rp.</string>
     <string name="per_roll">/ Roll</string>
+    <string name="form_order_title">Data Diri Pemesan</string>
+    <string name="name">Nama : </string>
+    <string name="address">Alamat Lengkap : </string>
+    <string name="phone">Telepon : </string>
+    <string name="location">Lokasi Pemesan : </string>
+    <string name="alert_order_title">Peringatan!!</string>
+    <string name="alert_order">Pastikan data yang anda kirim sudah benar!!</string>
 </resources>
