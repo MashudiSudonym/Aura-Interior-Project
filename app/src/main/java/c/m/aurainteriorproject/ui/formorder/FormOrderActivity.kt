@@ -107,15 +107,18 @@ class FormOrderActivity : AppCompatActivity() {
                     )
                 )
 
-                // default marker
-                googleMap.addMarker(
-                    MarkerOptions().position(
-                        LatLng(
-                            locLatitude as Double,
-                            locLongitude as Double
-                        )
-                    ).draggable(true)
+                // add current marker to array list
+                markerArrayList.add(
+                    googleMap.addMarker(
+                        MarkerOptions().position(
+                            LatLng(
+                                locLatitude as Double,
+                                locLongitude as Double
+                            )
+                        ).draggable(true)
+                    )
                 )
+
             } else {
                 googleMap.animateCamera(
                     CameraUpdateFactory.newCameraPosition(
