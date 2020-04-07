@@ -10,10 +10,12 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import c.m.aurainteriorproject.R
+import c.m.aurainteriorproject.model.CustomerResponse
 import c.m.aurainteriorproject.util.Constants
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -21,6 +23,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_form_order.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
@@ -44,6 +47,10 @@ class FormOrderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form_order)
 
+        // map select location manual
+        // map ui initiate
+        map_location.onCreate(savedInstanceState)
+
         val intent = intent
         type = intent.getStringExtra(Constants.TYPE)
 
@@ -61,10 +68,6 @@ class FormOrderActivity : AppCompatActivity() {
 
         // get location latitude and longitude value
         getGPSCoordinate()
-
-        // map select location manual
-        // map ui initiate
-        map_location.onCreate(savedInstanceState)
 
         // show map
         map_location.getMapAsync { googleMap ->
@@ -137,6 +140,17 @@ class FormOrderActivity : AppCompatActivity() {
         btn_order.setOnClickListener {
             alert(getString(R.string.alert_order), getString(R.string.alert_order_title)) {
                 yesButton {
+                    val databaseReference = FirebaseDatabase.getInstance().reference
+                    val uid = databaseReference.child("customers").push().key
+                    val customerData = CustomerResponse(
+                        uid,
+                        name.toString(),
+                        address.toString(),
+                        phone.toString(),
+                        locLatitude,
+                        locLongitude,
+                        type
+                    )
                     val urlWA =
                         "https://api.whatsapp.com/send?phone=6285155121640&text=Hai, saya *$name* ingin menanyakan tentang produk wallpaper *$type*.\n" +
                                 "Berikut ini data diri saya :\n" +
@@ -149,6 +163,15 @@ class FormOrderActivity : AppCompatActivity() {
                         data = Uri.parse(urlWA)
                     }
                     startActivity(openWhatsApp)
+                    databaseReference.child("customers")
+                        .child(uid.toString())
+                        .setValue(customerData)
+                        .addOnSuccessListener {
+                            Log.d("SUCCESS!!", "done")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("ERROR!!", "$e")
+                        }
                 }
                 noButton { }
             }.show()
@@ -249,9 +272,9 @@ class FormOrderActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
-    override fun onRestart() {
+    override fun onResume() {
         map_location.onResume()
-        super.onRestart()
+        super.onResume()
     }
 
     override fun onLowMemory() {
