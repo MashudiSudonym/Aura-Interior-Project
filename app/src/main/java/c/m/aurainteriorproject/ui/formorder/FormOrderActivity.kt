@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import c.m.aurainteriorproject.R
 import c.m.aurainteriorproject.model.CustomerResponse
 import c.m.aurainteriorproject.util.Constants
+import c.m.aurainteriorproject.util.Converter
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CameraPosition
@@ -32,6 +33,8 @@ import org.jetbrains.anko.yesButton
 class FormOrderActivity : AppCompatActivity() {
 
     private var type: String? = ""
+    private var priceEstimationResult: Double? = 0.0
+    private var rollEstimationResult: Double? = 0.0
     private lateinit var locationManager: LocationManager
     private var locLatitude: Double? = 0.0
     private var locLongitude: Double? = 0.0
@@ -53,6 +56,8 @@ class FormOrderActivity : AppCompatActivity() {
 
         val intent = intent
         type = intent.getStringExtra(Constants.TYPE)
+        priceEstimationResult = intent.getDoubleExtra(Constants.RESULT_PRICE_ESTIMATION, 0.0)
+        rollEstimationResult = intent.getDoubleExtra(Constants.RESULT_ROLL_ESTIMATION, 0.0)
 
         setSupportActionBar(toolbar_form_order)
         supportActionBar?.apply {
@@ -158,7 +163,11 @@ class FormOrderActivity : AppCompatActivity() {
                                 "Alamat: *$address*\n" +
                                 "Telepon: *$phone*\n" +
                                 "Latitude: *$locLatitude*\n" +
-                                "Longitude: *$locLongitude*"
+                                "Longitude: *$locLongitude*\n" +
+                                "Estimasi Harga yang saya dapat: *${Converter.rupiah(
+                                    priceEstimationResult as Double
+                                )}*\n" +
+                                "Estimasi Roll Wallpaper yang saya dapat: *$rollEstimationResult roll*\n"
                     val openWhatsApp = Intent(Intent.ACTION_VIEW).apply {
                         data = Uri.parse(urlWA)
                     }

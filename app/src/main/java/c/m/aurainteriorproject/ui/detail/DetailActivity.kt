@@ -19,6 +19,8 @@ class DetailActivity : AppCompatActivity(), DetailView {
 
     private lateinit var presenter: DetailPresenter
     private var uid: String? = ""
+    private var rollEstimationResult: Double = 0.0
+    private var priceEstimationResult: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,8 +97,8 @@ class DetailActivity : AppCompatActivity(), DetailView {
             }
 
             // calculate estimation
-            val rollEstimationResult = ceil(resultEditTextValue.toDouble().div(4.5))
-            val priceEstimationResult = resultEditTextValue.toDouble().times(70000)
+            rollEstimationResult = ceil(resultEditTextValue.toDouble().div(4.5))
+            priceEstimationResult = resultEditTextValue.toDouble().times(70000)
 
             // result
             tv_roll_estimation.text = "$rollEstimationResult roll"
@@ -106,7 +108,9 @@ class DetailActivity : AppCompatActivity(), DetailView {
         // Order Button
         btn_order.setOnClickListener {
             startActivity<FormOrderActivity>(
-                Constants.TYPE to type
+                Constants.TYPE to type,
+                Constants.RESULT_PRICE_ESTIMATION to priceEstimationResult,
+                Constants.RESULT_ROLL_ESTIMATION to rollEstimationResult
             )
         }
     }
