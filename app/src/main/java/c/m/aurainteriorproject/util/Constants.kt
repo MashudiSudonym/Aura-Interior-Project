@@ -6,5 +6,6 @@ class Constants {
         const val TYPE = "type"
         const val RESULT_PRICE_ESTIMATION = "result price estimation"
         const val RESULT_ROLL_ESTIMATION = "result roll estimation"
+        const val REQUEST_SIGN_IN_CODE = 101
     }
 }

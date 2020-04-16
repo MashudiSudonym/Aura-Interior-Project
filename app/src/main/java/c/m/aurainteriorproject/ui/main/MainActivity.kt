@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import c.m.aurainteriorproject.R
 import c.m.aurainteriorproject.model.WallpaperResponse
 import c.m.aurainteriorproject.ui.detail.DetailActivity
+import c.m.aurainteriorproject.ui.signin.SignInActivity
 import c.m.aurainteriorproject.util.Constants
 import c.m.aurainteriorproject.util.gone
 import c.m.aurainteriorproject.util.visible
@@ -99,6 +100,11 @@ class MainActivity : AppCompatActivity(), MainView {
         contentData.clear()
         contentData.addAll(wallpaperData)
         mainAdapter.notifyDataSetChanged()
+    }
+
+    override fun returnToSignIn() {
+        finish() // finish this activity
+        startActivity<SignInActivity>()
     }
 
     // shimmer loading animation start

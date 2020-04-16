@@ -8,4 +8,5 @@ interface MainView : BaseView {
     fun hideLoading()
     fun showNoDataResult()
     fun getWallpaper(wallpaperData: List<WallpaperResponse>)
+    fun returnToSignIn()
 }

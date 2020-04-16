@@ -24,4 +24,7 @@
     <string name="location">Lokasi Pemesan : </string>
     <string name="alert_order_title">Peringatan!!</string>
     <string name="alert_order">Pastikan data yang anda kirim sudah benar!!</string>
+    <string name="id_default_country" translatable="false">id</string>
+    <string name="sign_in_cancel_alert">Sign in cancel</string>
+    <string name="check_internet_connection_alert">Check your internet connection</string>
 </resources>
