@@ -32,4 +32,5 @@
     <string name="alert_message_order_success">Pesanan anda telah diterima oleh admin, silahkan tunggu pemberitahuan selanjutnya.</string>
     <string name="alert_title_order_success">Pesanan berhasil dibuat.</string>
     <string name="input_form_estimation">Masukkan Luas Ruangan (Meter Persegi)</string>
+    <string name="date">Date</string>
 </resources>

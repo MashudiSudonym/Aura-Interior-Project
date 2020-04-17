@@ -1,23 +1,23 @@
-package c.m.aurainteriorproject.ui.main
+package c.m.aurainteriorproject.ui.order
 
 import android.util.Log
-import c.m.aurainteriorproject.model.WallpaperResponse
+import c.m.aurainteriorproject.model.OrderResponse
 import c.m.aurainteriorproject.util.base.BasePresenter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 @Suppress("UNCHECKED_CAST")
-class MainPresenter : BasePresenter<MainView> {
-    private var mainView: MainView? = null
+class OrderPresenter : BasePresenter<OrderView> {
+    private var orderView: OrderView? = null
     private lateinit var databaseReference: DatabaseReference
     private lateinit var authentication: FirebaseAuth
 
-    override fun onAttach(view: MainView) {
-        mainView = view
+    override fun onAttach(view: OrderView) {
+        orderView = view
     }
 
     override fun onDetach() {
-        mainView = null
+        orderView = null
     }
 
     fun firebaseInit() {
@@ -27,33 +27,38 @@ class MainPresenter : BasePresenter<MainView> {
 
     private fun userAuthentication() = authentication.currentUser != null
 
-    fun getWallpaper() {
+    fun getOrder() {
         if (userAuthentication()) {
-            mainView?.showLoading()
-            databaseReference.child("wallpapers")
+            val customerUID = authentication.currentUser?.uid
+
+            orderView?.showLoading()
+
+            databaseReference.child("orders")
+                .orderByChild("customerUID")
+                .equalTo(customerUID)
                 .addValueEventListener(object : ValueEventListener {
                     override fun onCancelled(databaseError: DatabaseError) {
                         Log.e("Err!!", "Load Error : $databaseError", databaseError.toException())
 
-                        mainView?.showNoDataResult()
+                        orderView?.showNoDataResult()
                     }
 
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        val wallpaperData = dataSnapshot.children.flatMap {
-                            mutableListOf(it.getValue(WallpaperResponse::class.java))
+                        val orderData = dataSnapshot.children.flatMap {
+                            mutableListOf(it.getValue(OrderResponse::class.java))
                         }
 
-                        when (wallpaperData.isEmpty()) {
-                            true -> mainView?.showNoDataResult()
+                        when (orderData.isEmpty()) {
+                            true -> orderView?.showNoDataResult()
                             false -> {
-                                mainView?.hideLoading()
-                                mainView?.getWallpaper(wallpaperData as List<WallpaperResponse>)
+                                orderView?.hideLoading()
+                                orderView?.getOrder(orderData as List<OrderResponse>)
                             }
                         }
                     }
                 })
         } else {
-            mainView?.returnToSignIn()
+            orderView?.returnToSignIn()
         }
     }
 }

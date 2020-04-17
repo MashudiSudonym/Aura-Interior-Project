@@ -2,19 +2,19 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_main"
+    android:id="@+id/layout_order"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.MainActivity">
+    tools:context=".ui.order.OrderActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_main"
+        android:id="@+id/app_bar_order"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:fitsSystemWindows="true">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_main"
+            android:id="@+id/toolbar_order"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:fitsSystemWindows="true"
@@ -24,7 +24,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_main"
+        android:id="@+id/swipe_refresh_order"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -34,7 +34,7 @@
             android:layout_height="match_parent">
 
             <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_frame_main"
+                android:id="@+id/shimmer_frame_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -70,7 +70,7 @@
             </com.facebook.shimmer.ShimmerFrameLayout>
 
             <TextView
-                android:id="@+id/tv_no_data_main"
+                android:id="@+id/tv_no_data_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -87,7 +87,7 @@
                 tools:text="@string/no_data" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_wallpaper"
+                android:id="@+id/rv_order"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:isScrollContainer="true"
@@ -95,7 +95,7 @@
                 app:reverseLayout="true"
                 app:stackFromEnd="true"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_wallpaper"
+                tools:listitem="@layout/item_order"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

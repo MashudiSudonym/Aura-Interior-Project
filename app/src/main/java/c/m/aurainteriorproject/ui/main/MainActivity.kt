@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import c.m.aurainteriorproject.R
 import c.m.aurainteriorproject.model.WallpaperResponse
 import c.m.aurainteriorproject.ui.detail.DetailActivity
+import c.m.aurainteriorproject.ui.order.OrderActivity
 import c.m.aurainteriorproject.ui.signin.SignInActivity
 import c.m.aurainteriorproject.util.Constants
 import c.m.aurainteriorproject.util.gone
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private lateinit var presenter: MainPresenter
     private lateinit var mainAdapter: MainAdapter
-    private val contentData: MutableList<WallpaperResponse> = mutableListOf()
+    private val content: MutableList<WallpaperResponse> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     private fun setupRecyclerView() {
-        mainAdapter = MainAdapter(contentData) { response ->
+        mainAdapter = MainAdapter(content) { response ->
             startActivity<DetailActivity>(Constants.UID to response.uid)
         }
         rv_wallpaper.setHasFixedSize(true)
@@ -101,8 +102,8 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun getWallpaper(wallpaperData: List<WallpaperResponse>) {
-        contentData.clear()
-        contentData.addAll(wallpaperData)
+        content.clear()
+        content.addAll(wallpaperData)
         mainAdapter.notifyDataSetChanged()
     }
 
@@ -132,7 +133,7 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_my_order_list -> {
-                //startActivity<SettingsActivity>()
+                startActivity<OrderActivity>()
                 true
             }
             R.id.menu_sign_out -> {
