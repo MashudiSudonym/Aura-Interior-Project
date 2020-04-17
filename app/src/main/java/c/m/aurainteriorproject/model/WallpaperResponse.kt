@@ -7,14 +7,12 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class WallpaperResponse(
     var uid: String? = "",
     var type: String? = "",
-    var imageWallpaper: String? = "",
-    var price: Int? = 0
+    var imageWallpaper: String? = ""
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> = mapOf(
         "uid" to uid,
         "type" to type,
-        "imageWallpaper" to imageWallpaper,
-        "price" to price
+        "imageWallpaper" to imageWallpaper
     )
 }

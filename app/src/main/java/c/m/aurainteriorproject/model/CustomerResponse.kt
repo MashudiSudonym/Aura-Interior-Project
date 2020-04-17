@@ -11,7 +11,9 @@ data class CustomerResponse(
     var phone: String? = "0",
     var latitude: Double? = 0.0,
     var longitude: Double? = 0.0,
-    var typeWallpaperOrder: String? = ""
+    var typeWallpaperOrder: String? = "",
+    var priceEstimation: String? = "",
+    var rollEstimation: String? = ""
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> = mapOf(
@@ -21,6 +23,8 @@ data class CustomerResponse(
         "phone" to phone,
         "latitude" to latitude,
         "longitude" to longitude,
-        "typeWallpaperOrder" to typeWallpaperOrder
+        "typeWallpaperOrder" to typeWallpaperOrder,
+        "priceEstimation" to priceEstimation,
+        "rollEstimation" to rollEstimation
     )
 }
