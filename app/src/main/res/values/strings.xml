@@ -27,4 +27,6 @@
     <string name="id_default_country" translatable="false">id</string>
     <string name="sign_in_cancel_alert">Sign in cancel</string>
     <string name="check_internet_connection_alert">Check your internet connection</string>
+    <string name="my_order_list">Daftar Pesanan Saya</string>
+    <string name="out">Keluar</string>
 </resources>

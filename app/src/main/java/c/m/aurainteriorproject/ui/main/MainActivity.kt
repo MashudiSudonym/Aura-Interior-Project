@@ -2,6 +2,9 @@ package c.m.aurainteriorproject.ui.main
 
 import android.Manifest
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import c.m.aurainteriorproject.R
 import c.m.aurainteriorproject.model.WallpaperResponse
@@ -10,6 +13,7 @@ import c.m.aurainteriorproject.ui.signin.SignInActivity
 import c.m.aurainteriorproject.util.Constants
 import c.m.aurainteriorproject.util.gone
 import c.m.aurainteriorproject.util.visible
+import com.firebase.ui.auth.AuthUI
 import com.github.babedev.dexter.dsl.runtimePermission
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
@@ -117,5 +121,36 @@ class MainActivity : AppCompatActivity(), MainView {
     private fun shimmerStop() {
         shimmer_frame_main.gone()
         shimmer_frame_main.stopShimmer()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_my_order_list -> {
+                //startActivity<SettingsActivity>()
+                true
+            }
+            R.id.menu_sign_out -> {
+                // user Sign Out
+                AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            // Finish this activity
+                            finish()
+
+                            // return to sign in activity
+                            startActivity<SignInActivity>()
+                        }
+                    }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
