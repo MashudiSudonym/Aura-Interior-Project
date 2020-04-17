@@ -84,11 +84,12 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
+                android:hint="@string/input_form_estimation"
+                android:importantForAutofill="no"
                 android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_spacious_room"
-                android:importantForAutofill="no"
                 tools:ignore="LabelFor" />
 
             <TextView

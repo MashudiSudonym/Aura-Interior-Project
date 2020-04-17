@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -15,24 +14,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import c.m.aurainteriorproject.R
-import c.m.aurainteriorproject.model.CustomerResponse
+import c.m.aurainteriorproject.model.OrderResponse
+import c.m.aurainteriorproject.ui.main.MainActivity
 import c.m.aurainteriorproject.util.Constants
-import c.m.aurainteriorproject.util.Converter
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_form_order.*
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.noButton
-import org.jetbrains.anko.yesButton
+import org.jetbrains.anko.*
 
 class FormOrderActivity : AppCompatActivity() {
 
-    private var type: String? = ""
+    private var typeWallpaper: String? = ""
     private var priceEstimationResult: Double? = 0.0
     private var rollEstimationResult: Double? = 0.0
     private lateinit var locationManager: LocationManager
@@ -44,8 +42,6 @@ class FormOrderActivity : AppCompatActivity() {
     private var locationNetwork: Location? = null
     private var markerArrayList: ArrayList<Marker> = arrayListOf()
 
-    private var chatContent: String? = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form_order)
@@ -55,7 +51,7 @@ class FormOrderActivity : AppCompatActivity() {
         map_location.onCreate(savedInstanceState)
 
         val intent = intent
-        type = intent.getStringExtra(Constants.TYPE)
+        typeWallpaper = intent.getStringExtra(Constants.TYPE)
         priceEstimationResult = intent.getDoubleExtra(Constants.RESULT_PRICE_ESTIMATION, 0.0)
         rollEstimationResult = intent.getDoubleExtra(Constants.RESULT_ROLL_ESTIMATION, 0.0)
 
@@ -146,39 +142,48 @@ class FormOrderActivity : AppCompatActivity() {
             alert(getString(R.string.alert_order), getString(R.string.alert_order_title)) {
                 yesButton {
                     val databaseReference = FirebaseDatabase.getInstance().reference
+                    val authentication = FirebaseAuth.getInstance()
                     val uid = databaseReference.child("customers").push().key
-                    val customerData = CustomerResponse(
+                    val customerUID = authentication.currentUser?.uid
+                    val orderData = OrderResponse(
                         uid,
                         name.toString(),
                         address.toString(),
                         phone.toString(),
                         locLatitude,
                         locLongitude,
-                        type
+                        typeWallpaper,
+                        priceEstimationResult.toString(),
+                        rollEstimationResult.toString(),
+                        customerUID,
+                        0
                     )
-                    val urlWA =
-                        "https://api.whatsapp.com/send?phone=6285155121640&text=Hai, saya *$name* ingin menanyakan tentang produk wallpaper *$type*.\n" +
-                                "Berikut ini data diri saya :\n" +
-                                "Nama: *$name*\n" +
-                                "Alamat: *$address*\n" +
-                                "Telepon: *$phone*\n" +
-                                "Latitude: *$locLatitude*\n" +
-                                "Longitude: *$locLongitude*\n" +
-                                "Estimasi Harga yang saya dapat: *${Converter.rupiah(
-                                    priceEstimationResult as Double
-                                )}*\n" +
-                                "Estimasi Roll Wallpaper yang saya dapat: *$rollEstimationResult roll*\n"
-                    val openWhatsApp = Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse(urlWA)
-                    }
-                    startActivity(openWhatsApp)
-                    databaseReference.child("customers")
+
+                    databaseReference.child("orders")
                         .child(uid.toString())
-                        .setValue(customerData)
+                        .setValue(orderData)
                         .addOnSuccessListener {
-                            Log.d("SUCCESS!!", "done")
+                            alert(
+                                getString(R.string.alert_message_order_success),
+                                getString(R.string.alert_title_order_success)
+                            ) {
+                                okButton {
+                                    finish()
+                                    startActivity<MainActivity>()
+                                }
+                            }.apply {
+                                isCancelable = false
+                                show()
+                            }
                         }
                         .addOnFailureListener { e ->
+                            alert("$e", "ERROR!!") {
+                                okButton {}
+                            }.apply {
+                                isCancelable = false
+                                show()
+                            }
+
                             Log.e("ERROR!!", "$e")
                         }
                 }
@@ -272,6 +277,7 @@ class FormOrderActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("SameParameterValue")
     private fun requestPermission(permissionType: String, requestCode: Int) {
         ActivityCompat.requestPermissions(this, arrayOf(permissionType), requestCode)
     }

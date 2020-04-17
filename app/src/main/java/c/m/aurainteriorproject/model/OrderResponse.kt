@@ -4,7 +4,7 @@ import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
-data class CustomerResponse(
+data class OrderResponse(
     var uid: String? = "",
     var name: String? = "",
     var address: String? = "",
@@ -13,7 +13,9 @@ data class CustomerResponse(
     var longitude: Double? = 0.0,
     var typeWallpaperOrder: String? = "",
     var priceEstimation: String? = "",
-    var rollEstimation: String? = ""
+    var rollEstimation: String? = "",
+    var customerUID: String? = "",
+    var orderStatus: Int? = 0
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> = mapOf(
@@ -25,6 +27,8 @@ data class CustomerResponse(
         "longitude" to longitude,
         "typeWallpaperOrder" to typeWallpaperOrder,
         "priceEstimation" to priceEstimation,
-        "rollEstimation" to rollEstimation
+        "rollEstimation" to rollEstimation,
+        "customerUID" to customerUID,
+        "orderStatus" to orderStatus
     )
 }

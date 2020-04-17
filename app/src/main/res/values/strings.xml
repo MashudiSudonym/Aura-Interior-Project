@@ -29,4 +29,7 @@
     <string name="check_internet_connection_alert">Check your internet connection</string>
     <string name="my_order_list">Daftar Pesanan Saya</string>
     <string name="out">Keluar</string>
+    <string name="alert_message_order_success">Pesanan anda telah diterima oleh admin, silahkan tunggu pemberitahuan selanjutnya.</string>
+    <string name="alert_title_order_success">Pesanan berhasil dibuat.</string>
+    <string name="input_form_estimation">Masukkan Luas Ruangan (Meter Persegi)</string>
 </resources>
