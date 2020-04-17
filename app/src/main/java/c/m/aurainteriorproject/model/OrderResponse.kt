@@ -15,7 +15,8 @@ data class OrderResponse(
     var priceEstimation: String? = "",
     var rollEstimation: String? = "",
     var customerUID: String? = "",
-    var orderStatus: Int? = 0
+    var orderStatus: Int? = 0,
+    var orderDate: String? = ""
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> = mapOf(
@@ -29,6 +30,7 @@ data class OrderResponse(
         "priceEstimation" to priceEstimation,
         "rollEstimation" to rollEstimation,
         "customerUID" to customerUID,
-        "orderStatus" to orderStatus
+        "orderStatus" to orderStatus,
+        "orderDate" to orderDate
     )
 }

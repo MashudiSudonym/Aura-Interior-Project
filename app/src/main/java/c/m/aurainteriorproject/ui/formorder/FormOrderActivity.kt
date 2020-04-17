@@ -9,6 +9,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Editable
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -17,6 +18,7 @@ import c.m.aurainteriorproject.R
 import c.m.aurainteriorproject.model.OrderResponse
 import c.m.aurainteriorproject.ui.main.MainActivity
 import c.m.aurainteriorproject.util.Constants
+import c.m.aurainteriorproject.util.Converter
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CameraPosition
@@ -27,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_form_order.*
 import org.jetbrains.anko.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FormOrderActivity : AppCompatActivity() {
 
@@ -76,6 +80,7 @@ class FormOrderActivity : AppCompatActivity() {
             googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
 
             // Control settings
+            googleMap.isMyLocationEnabled = true
             googleMap.uiSettings.isZoomControlsEnabled = true
             googleMap.uiSettings.isCompassEnabled = true
 
@@ -141,55 +146,65 @@ class FormOrderActivity : AppCompatActivity() {
         btn_order.setOnClickListener {
             alert(getString(R.string.alert_order), getString(R.string.alert_order_title)) {
                 yesButton {
-                    val databaseReference = FirebaseDatabase.getInstance().reference
-                    val authentication = FirebaseAuth.getInstance()
-                    val uid = databaseReference.child("customers").push().key
-                    val customerUID = authentication.currentUser?.uid
-                    val orderData = OrderResponse(
-                        uid,
-                        name.toString(),
-                        address.toString(),
-                        phone.toString(),
-                        locLatitude,
-                        locLongitude,
-                        typeWallpaper,
-                        priceEstimationResult.toString(),
-                        rollEstimationResult.toString(),
-                        customerUID,
-                        0
-                    )
-
-                    databaseReference.child("orders")
-                        .child(uid.toString())
-                        .setValue(orderData)
-                        .addOnSuccessListener {
-                            alert(
-                                getString(R.string.alert_message_order_success),
-                                getString(R.string.alert_title_order_success)
-                            ) {
-                                okButton {
-                                    finish()
-                                    startActivity<MainActivity>()
-                                }
-                            }.apply {
-                                isCancelable = false
-                                show()
-                            }
-                        }
-                        .addOnFailureListener { e ->
-                            alert("$e", "ERROR!!") {
-                                okButton {}
-                            }.apply {
-                                isCancelable = false
-                                show()
-                            }
-
-                            Log.e("ERROR!!", "$e")
-                        }
+                    sendOrderData(name, address, phone)
                 }
                 noButton { }
             }.show()
         }
+    }
+
+    private fun sendOrderData(
+        name: Editable,
+        address: Editable,
+        phone: Editable
+    ) {
+        val databaseReference = FirebaseDatabase.getInstance().reference
+        val authentication = FirebaseAuth.getInstance()
+        val uid = databaseReference.child("customers").push().key
+        val customerUID = authentication.currentUser?.uid
+        val orderDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+        val orderData = OrderResponse(
+            uid,
+            name.toString(),
+            address.toString(),
+            phone.toString(),
+            locLatitude,
+            locLongitude,
+            typeWallpaper,
+            Converter.rupiah(priceEstimationResult as Double),
+            rollEstimationResult.toString(),
+            customerUID,
+            0,
+            orderDate
+        )
+
+        databaseReference.child("orders")
+            .child(uid.toString())
+            .setValue(orderData)
+            .addOnSuccessListener {
+                alert(
+                    getString(R.string.alert_message_order_success),
+                    getString(R.string.alert_title_order_success)
+                ) {
+                    okButton {
+                        finish()
+                        startActivity<MainActivity>()
+                    }
+                }.apply {
+                    isCancelable = false
+                    show()
+                }
+            }
+            .addOnFailureListener { e ->
+                alert("$e", "ERROR!!") {
+                    okButton {}
+                }.apply {
+                    isCancelable = false
+                    show()
+                }
+
+                Log.e("ERROR!!", "$e")
+            }
     }
 
     private fun getGPSCoordinate() {
