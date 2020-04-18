@@ -21,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="AllowBackup">
+        <activity android:name=".ui.orderdetail.OrderDetailActivity"></activity>
         <activity android:name=".ui.order.OrderActivity" />
         <activity android:name=".ui.signin.SignInActivity" />
         <activity android:name=".ui.formorder.FormOrderActivity" />

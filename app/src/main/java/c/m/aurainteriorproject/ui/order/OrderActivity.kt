@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import c.m.aurainteriorproject.R
 import c.m.aurainteriorproject.model.OrderResponse
+import c.m.aurainteriorproject.ui.orderdetail.OrderDetailActivity
 import c.m.aurainteriorproject.ui.signin.SignInActivity
+import c.m.aurainteriorproject.util.Constants
 import c.m.aurainteriorproject.util.gone
 import c.m.aurainteriorproject.util.visible
 import kotlinx.android.synthetic.main.activity_order.*
@@ -92,7 +94,7 @@ class OrderActivity : AppCompatActivity(), OrderView {
 
     private fun setupRecyclerView() {
         orderAdapter = OrderAdapter(content) { response ->
-            //startActivity<DetailActivity>(Constants.UID to response.uid)
+            startActivity<OrderDetailActivity>(Constants.UID to response.uid)
         }
         rv_order.setHasFixedSize(true)
         rv_order.adapter = orderAdapter

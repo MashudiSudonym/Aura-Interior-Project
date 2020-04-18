@@ -33,4 +33,15 @@
     <string name="alert_title_order_success">Pesanan berhasil dibuat.</string>
     <string name="input_form_estimation">Masukkan Luas Ruangan (Meter Persegi)</string>
     <string name="date">Date</string>
+    <string name="customer_name">Nama Pemesan</string>
+    <string name="address_customer">Alamat Pemesan</string>
+    <string name="phone_customer">Nomor Telepon Pemesan</string>
+    <string name="type_wallpaper_customer">Tipe Wallpaper yang Dipesan</string>
+    <string name="order_status">Status Pesanan</string>
+    <string name="roll_estimation_customer">Estimasi Roll Wallpaper yang Didapat</string>
+    <string name="price_estimation_customer">Estimasi Total Harga yang Didapat (termasuk harga jasa pemasangan)</string>
+    <string name="order_date">Tanggal Pesanan</string>
+    <string name="waiting_status">Menunggu</string>
+    <string name="order_accept_status">Pesanan Diterima</string>
+    <string name="order_cancel_status">Pesanan Dibatalkan</string>
 </resources>
