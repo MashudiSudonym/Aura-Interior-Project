@@ -21,11 +21,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.orderdetail.OrderDetailActivity"></activity>
+        <activity android:name=".ui.orderdetail.OrderDetailActivity" />
         <activity android:name=".ui.order.OrderActivity" />
         <activity android:name=".ui.signin.SignInActivity" />
         <activity android:name=".ui.formorder.FormOrderActivity" />
         <activity android:name=".ui.detail.DetailActivity" />
+
+        <service
+            android:name="c.m.aurainteriorproject.util.service.ApplicationFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_launcher_foreground" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
 
         <meta-data
             android:name="com.google.android.gms.version"

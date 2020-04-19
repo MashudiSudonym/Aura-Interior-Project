@@ -74,6 +74,7 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.work:work-runtime:2.3.4'
     // Image Library
     implementation("io.coil-kt:coil:0.9.5")
     implementation 'com.github.chathuralakmal:AndroidImagePopup:1.2.2'

@@ -44,4 +44,7 @@
     <string name="waiting_status">Menunggu</string>
     <string name="order_accept_status">Pesanan Diterima</string>
     <string name="order_cancel_status">Pesanan Dibatalkan</string>
+    <string name="default_notification_channel_id" translatable="false">6969</string>
+    <string name="notification_channel" translatable="false">Aura Interior Project Notification</string>
+    <string name="short_lived_task_is_done" translatable="false">Short lived task is done.</string>
 </resources>
